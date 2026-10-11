@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pramuka Challenge</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: white;
+    background:
+        radial-gradient(ellipse at top right, #302071, transparent 50%),
+        radial-gradient(ellipse at bottom left, #00546b, transparent 50%),
+        linear-gradient(140deg, #071432, #171747, #092a43);
+    padding: 20px 14px;
+}
+
+.app {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    padding: 24px 20px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 25px;
+    background: rgba(17, 30, 69, 0.92);
+    box-shadow: 0 15px 45px rgba(0,0,0,0.3);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.tent {
+    font-size: 45px;
+}
+
+.label {
+    color: #ffd166;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 7px;
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(20px, 5vw, 28px);
+}
+
+.subtitle {
+    color: #c4d0ef;
+    margin-top: 7px;
+    font-size: 14px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.gold {
+    color: #ffd166;
+}
+
+.progress {
+    height: 7px;
+    background: #364365;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #ffdb70, #f6a73e);
+}
+
+.question-box {
+    padding: 24px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.04);
+}
+
+.question-label {
+    color: #ffd166;
+    font-weight: bold;
+    letter-spacing: 3px;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.question {
+    font-size: 24px;
+    line-height: 1.5;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+    margin-bottom: 25px;
+}
+
+.hint {
+    color: #cbd5f0;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+input {
+    display: block;
+    width: 100%;
+    padding: 17px 14px;
+    border: 2px solid #5e79d9;
+    border-radius: 14px;
+    outline: none;
+    background: #101c3b;
+    color: white;
+    font-size: 16px;
+    margin-bottom: 18px;
+}
+
+input:focus {
+    border-color: #ffd166;
+}
+
+input::placeholder {
+    color: #8799c3;
+}
+
+button {
+    width: 100%;
+    padding: 17px 10px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(110deg, #ffda70, #f5a83d);
+    color: #101b3a;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.result {
+    display: none;
+    margin-top: 18px;
+    padding: 15px 10px;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.correct {
+    display: block;
+    color: #4dff9a;
+    background: rgba(0,255,130,0.10);
+    border: 1px solid #22b96d;
+}
+
+.wrong {
+    display: block;
+    color: #ff6868;
+    background: rgba(255,50,50,0.10);
+    border: 1px solid #e64c4c;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 25px;
+    color: #c3d5f2;
+    font-size: 11px;
+    letter-spacing: 1px;
+    line-height: 2;
+}
+
+.footer span {
+    color: #ffd166;
+    margin: 0 4px;
+}
+
+/* HP MIRING */
+@media screen and (orientation: landscape) {
+
+    body {
+        padding: 12px;
+    }
+
+    .app {
+        max-width: 950px;
+        padding: 18px 25px;
+    }
+
+    .header {
+        margin-bottom: 15px;
+    }
+
+    .tent {
+        font-size: 35px;
+    }
+
+    .progress {
+        margin-bottom: 15px;
+    }
+
+    .question-box {
+        padding: 18px 22px;
+    }
+
+    .question-label {
+        margin-bottom: 12px;
+    }
+
+    .question {
+        font-size: 21px;
+        margin-bottom: 16px;
+    }
+
+    .hint {
+        margin-bottom: 8px;
+    }
+
+    input {
+        padding: 13px;
+        margin-bottom: 12px;
+    }
+
+    button {
+        padding: 14px;
+    }
+
+    .footer {
+        margin-top: 15px;
+    }
+}
+
+/* HP MIRING DENGAN LAYAR PENDEK */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+
+    body {
+        padding: 8px;
+    }
+
+    .app {
+        padding: 14px 20px;
+    }
+
+    .header {
+        margin-bottom: 12px;
+    }
+
+    .subtitle {
+        margin-top: 4px;
+    }
+
+    .question-box {
+        padding: 15px;
+    }
+
+    .question {
+        font-size: 19px;
+        margin-bottom: 12px;
+    }
+
+    .footer {
+        margin-top: 12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="header">
+        <div class="tent">⛺</div>
+
+        <div>
+            <div class="label">SCOUTING • KNOWLEDGE</div>
+            <h1>PRAMUKA AFIFIYAH</h1>
+            <div class="subtitle">Uji pengetahuanmu!</div>
+        </div>
+    </div>
+
+    <div class="progress-info">
+        <div>SOAL <span class="gold">01 / 01</span></div>
+        <div class="gold">★ LATIHAN</div>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar"></div>
+    </div>
+
+    <div class="question-box">
+
+        <div class="question-label">PERTANYAAN</div>
+
+        <div class="question" id="question"></div>
+
+        <div class="hint">
+            Ketik jawabanmu di bawah ini
+        </div>
+
+        <input
+            type="text"
+            id="answer"
+            placeholder="Tulis jawaban di sini..."
+            autocomplete="off"
+        >
+
+        <button id="checkButton">
+            ✓ PERIKSA JAWABAN
+        </button>
+
+        <div id="result" class="result"></div>
+
+    </div>
+
+    <div class="footer">
+        FOKUS <span>•</span>
+        DISIPLIN <span>•</span>
+        BERANI MENCOBA
+    </div>
+
+</div>
+
+<script>
+
+// =====================================
+// GANTI SOAL DAN JAWABAN DI SINI SAJA
+// =====================================
+
+const soal = "Apa lambang Gerakan Pramuka Indonesia?";
+
+const jawabanBenar = [
+    "tunas kelapa"
+];
+
+// =====================================
+// SISTEM EFEK SUARA
+// =====================================
+
+let audioContext;
+
+function siapkanAudio() {
+    if (!audioContext) {
+        const AudioClass =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+        if (AudioClass) {
+            audioContext = new AudioClass();
+        }
+    }
+
+    if (audioContext &&
+        audioContext.state === "suspended") {
+        audioContext.resume();
+    }
+}
+
+function bunyi(frekuensi, durasi, tipe, volume) {
+    siapkanAudio();
+
+    if (!audioContext) return;
+
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    const waktu = audioContext.currentTime;
+
+    oscillator.type = tipe;
+    oscillator.frequency.setValueAtTime(
+        frekuensi, waktu
+    );
+
+    gain.gain.setValueAtTime(volume, waktu);
+    gain.gain.exponentialRampToValueAtTime(
+        0.001, waktu + durasi
+    );
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+
+    oscillator.start(waktu);
+    oscillator.stop(waktu + durasi);
+}
+
+// Suara saat mengetik
+function suaraKetik() {
+    bunyi(650, 0.045, "square", 0.018);
+}
+
+// Suara jawaban benar
+function suaraBenar() {
+    bunyi(523, 0.16, "sine", 0.09);
+
+    setTimeout(() => {
+        bunyi(659, 0.16, "sine", 0.09);
+    }, 130);
+
+    setTimeout(() => {
+        bunyi(784, 0.30, "sine", 0.09);
+    }, 260);
+}
+
+// Suara jawaban salah
+function suaraSalah() {
+    bunyi(280, 0.20, "triangle", 0.08);
+
+    setTimeout(() => {
+        bunyi(190, 0.30, "triangle", 0.08);
+    }, 180);
+}
+
+// =====================================
+// MENAMPILKAN SOAL
+// =====================================
+
+document.getElementById("question").textContent = soal;
+
+const kolomJawaban = document.getElementById("answer");
+const hasil = document.getElementById("result");
+
+kolomJawaban.addEventListener("keydown", function(event) {
+    if (event.key.length === 1) {
+        suaraKetik();
+    }
+});
+
+// =====================================
+// MEMERIKSA JAWABAN
+// =====================================
+
+document.getElementById("checkButton").addEventListener(
+    "click", periksaJawaban
+);
+
+function periksaJawaban() {
+
+    siapkanAudio();
+
+    const jawabanUser = kolomJawaban.value
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
+
+    if (jawabanUser === "") {
+        hasil.className = "result wrong";
+        hasil.textContent =
+            "⚠️ Silakan isi jawaban terlebih dahulu!";
+        return;
+    }
+
+    const benar = jawabanBenar.some(function(jawaban) {
+        return jawabanUser === jawaban
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, " ");
+    });
+
+    if (benar) {
+        hasil.className = "result correct";
+        hasil.textContent = "✓ JAWABAN BENAR! HEBAT!";
+        suaraBenar();
+    } else {
+        hasil.className = "result wrong";
+        hasil.textContent = "✗ JAWABAN SALAH! COBA LAGI.";
+        suaraSalah();
+    }
+}
+
+// Tekan Enter untuk memeriksa jawaban
+kolomJawaban.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        periksaJawaban();
+    }
+});
+
+// Mengaktifkan suara setelah interaksi pertama
+document.addEventListener("pointerdown", siapkanAudio, {
+    once: true
+});
+
+</script>
+
+</body>
+</html>
